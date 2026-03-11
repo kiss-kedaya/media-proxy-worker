@@ -1,0 +1,17 @@
+name = "media-proxy"
+main = "src/index.ts"
+compatibility_date = "2026-03-11"
+
+[vars]
+# Comma-separated allowlist of upstream hosts
+ALLOWED_HOSTS = "video.twimg.com,pbs.twimg.com"
+
+# Optional: set a secret token in Cloudflare dashboard and enforce it at the edge.
+# If you set REQUIRE_TOKEN=1, requests must include ?token=... matching ACCESS_TOKEN.
+REQUIRE_TOKEN = "0"
+ACCESS_TOKEN = ""
+
+# Suggested routes (set in dashboard after deploy)
+# routes = [
+#   { pattern = "media.kedaya.xyz/*", zone_name = "kedaya.xyz" }
+# ]
