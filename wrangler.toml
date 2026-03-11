@@ -11,7 +11,6 @@ ALLOWED_HOSTS = "video.twimg.com,pbs.twimg.com"
 REQUIRE_TOKEN = "0"
 ACCESS_TOKEN = ""
 
-# Suggested routes (set in dashboard after deploy)
-# routes = [
-#   { pattern = "media.kedaya.xyz/*", zone_name = "kedaya.xyz" }
-# ]
+routes = [
+  { pattern = "media.kedaya.xyz/*", zone_name = "kedaya.xyz" }
+]
