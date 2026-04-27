@@ -1,34 +1,65 @@
 # media-proxy-worker
 
-Cloudflare Workers media proxy for `video.twimg.com` and `pbs.twimg.com` with Range/206 passthrough.
+Cloudflare Worker 通用转发代理。默认路由：
 
-## One-click deploy
+- `media.kedaya.xyz/*`
 
-Open the link below and replace `<YOUR_GITHUB_REPO_URL>` with your repo URL:
+## 配置
 
-https://deploy.workers.cloudflare.com/?url=<YOUR_GITHUB_REPO_URL>
+`ALLOWED_HOSTS` 使用英文逗号分隔，当前默认：
 
-After deploy, bind a custom domain route (recommended):
-- `media.kedaya.xyz/*` -> this Worker
+```toml
+ALLOWED_HOSTS = "video.twimg.com,pbs.twimg.com,t.co"
+```
 
-## Usage
+也支持：
 
-- `https://media.kedaya.xyz/?url=<encoded>`
-- or `https://media.kedaya.xyz/?url=https%3A%2F%2Fvideo.twimg.com%2F...`
+- `example.com`：只允许精确域名
+- `*.example.com` 或 `.example.com`：允许子域名
+- `*`：允许任意域名
 
-Optional token protection:
-- Set `REQUIRE_TOKEN=1` and `ACCESS_TOKEN` in Workers dashboard.
-- Then call: `https://media.kedaya.xyz/?url=...&token=...`
+如需令牌保护，设置：
 
-## Security
+```toml
+REQUIRE_TOKEN = "1"
+ACCESS_TOKEN = "your-secret"
+```
 
-- Strict upstream host allowlist: `video.twimg.com`, `pbs.twimg.com`
-- GET/HEAD only
-- URL length capped
+请求时追加 `token` 参数即可。
 
-## Dev
+## 用法
+
+查询参数模式：
+
+```bash
+curl "https://media.kedaya.xyz/?url=https%3A%2F%2Fvideo.twimg.com%2F..."
+```
+
+路径模式：
+
+```bash
+curl "https://media.kedaya.xyz/https://pbs.twimg.com/media/example.jpg"
+```
+
+POST JSON 也会转发请求体和常用请求头：
+
+```bash
+curl -X POST "https://media.kedaya.xyz/?url=https%3A%2F%2Fexample.com%2Fapi" \
+  -H "content-type: application/json" \
+  -d '{"hello":"world"}'
+```
+
+## 能力
+
+- 支持 `GET/HEAD/POST/PUT/PATCH/DELETE/OPTIONS`
+- 支持 Range、Cookie、Authorization、Content-Type、Merchant-Token 等请求头透传
+- 自动处理 CORS 预检
+- 默认不缓存上游响应
+
+## 开发
 
 ```bash
 npm i
 npm run dev
+npm run deploy -- --dry-run
 ```
