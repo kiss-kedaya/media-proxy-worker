@@ -9,7 +9,7 @@ Cloudflare Worker 通用转发代理。默认路由：
 `ALLOWED_HOSTS` 使用英文逗号分隔，当前默认：
 
 ```toml
-ALLOWED_HOSTS = "video.twimg.com,pbs.twimg.com,t.co"
+ALLOWED_HOSTS = "video.twimg.com,pbs.twimg.com,t.co,www.ldxp.cn"
 ```
 
 也支持：

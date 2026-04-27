@@ -8,7 +8,7 @@ routes = [
 
 [vars]
 # Comma-separated allowlist of upstream hosts
-ALLOWED_HOSTS = "video.twimg.com,pbs.twimg.com,t.co"
+ALLOWED_HOSTS = "video.twimg.com,pbs.twimg.com,t.co,www.ldxp.cn"
 
 # Optional: set a secret token in Cloudflare dashboard and enforce it at the edge.
 # If you set REQUIRE_TOKEN=1, requests must include ?token=... matching ACCESS_TOKEN.
